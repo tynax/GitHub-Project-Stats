@@ -1,6 +1,9 @@
 import os
 import re
+import sys
+import argparse
 from collections import defaultdict
+from datetime import datetime
 
 # File extensions to analyze
 TEXT_EXTENSIONS = {
@@ -19,11 +22,13 @@ TEXT_EXTENSIONS = {
         ".rs",
         ".swift",
         ".kt",
+        ".kts",
         ".scala",
         ".ts",
-        ".jsx",
         ".tsx",
+        ".jsx",
         ".html",
+        ".htm",
         ".css",
         ".scss",
         ".sass",
@@ -31,35 +36,74 @@ TEXT_EXTENSIONS = {
         ".sql",
         ".sh",
         ".bash",
+        ".bat",
+        ".ps1",
+        ".cmd",
         ".lua",
         ".r",
         ".pl",
         ".pm",
+        ".tcl",
+        ".awk",
+        ".sed",
         ".dart",
         ".groovy",
         ".vb",
+        ".vbs",
         ".asm",
         ".f",
         ".f90",
         ".f95",
         ".m",
+        ".ml",
+        ".mli",
         ".swift",
         ".vue",
         ".elm",
         ".clj",
+        ".cljs",
+        ".cljc",
         ".ex",
         ".exs",
         ".erl",
         ".hrl",
         ".lisp",
+        ".lsp",
         ".hs",
-        ".xml",
+        ".purs",
+        ".ada",
+        ".d",
+        ".nim",
+        ".zig",
+        ".jl",
+        ".cr",
+        ".json5",
+        ".hx",
+        ".wren",
+        ".p4",
+        ".rkt",
+        ".idris",
+        ".e",
+        ".pike",
+        ".lean",
+        ".v",
+        ".agda",
+        ".cob",
+        ".cpy",
+        ".abap",
+        ".rpg",
+        ".4gl",
+        ".chpl",
+        ".rex",
+        ".omgrofl",
     ],
     "Markup": [
         ".md",
         ".rst",
         ".txt",
         ".tex",
+        ".latex",
+        ".bib",
         ".json",
         ".yaml",
         ".yml",
@@ -70,18 +114,75 @@ TEXT_EXTENSIONS = {
         ".properties",
         ".csv",
         ".tsv",
+        ".xml",
+        ".xsl",
+        ".xsd",
+        ".xslt",
+        ".xhtml",
+        ".svg",
+        ".rss",
+        ".atom",
     ],
-    "Documentation": [".doc", ".docx", ".pdf", ".rtf", ".odt"],
+    "Documentation": [
+        ".doc",
+        ".docx",
+        ".pdf",
+        ".rtf",
+        ".odt",
+        ".fodt",
+        ".sxw",
+        ".wpd",
+        ".texi",
+        ".me",
+        ".ms",
+    ],
+    "Scripts": [
+        ".ps1",
+        ".cmd",
+        ".bat",
+        ".vbs",
+        ".applescript",
+        ".ahk",
+        ".ksh",
+        ".zsh",
+        ".fish",
+        ".csh",
+        ".tcsh",
+        ".mak",
+        ".mk",
+        ".ninja",
+        ".ebuild",
+        ".eclass",
+        ".pkgbuild",
+    ],
+    "Config": [
+        ".env",
+        ".venv",
+        ".editorconfig",
+        ".gitattributes",
+        ".gitignore",
+        ".gitmodules",
+        ".dockerfile",
+        ".npmrc",
+        ".yarnrc",
+        ".babelrc",
+        ".eslint",
+        ".prettierrc",
+        ".stylelintrc",
+        ".condarc",
+        ".flake8",
+        ".pylintrc",
+        ".mypy.ini",
+        ".pydocstyle",
+        ".phpcs",
+        ".phpmd",
+    ],
 }
 
 # Directories to exclude from analysis
 EXCLUDE_DIRS = [
     ".git",
     "node_modules",
-    "venv",
-    ".venv",
-    "env",
-    ".env",
     "build",
     "dist",
     "__pycache__",
@@ -172,15 +273,18 @@ def format_number(num):
     return f"{num:,}"
 
 
-def main():
-    stats = defaultdict(lambda: {"files": 0, "lines": 0, "chars": 0})
-    total_files = 0
-    total_lines = 0
-    total_chars = 0
+def analyze_directory(target_dir):
+    """
+    Analyze files in the specified directory and return statistics.
+    """
+    dir_stats = defaultdict(lambda: {"files": 0, "lines": 0, "chars": 0})
+    dir_total_files = 0
+    dir_total_lines = 0
+    dir_total_chars = 0
 
-    print("\nScanning files...\n")
+    print(f"\nScanning files in {target_dir}...\n")
 
-    for root, dirs, files in os.walk("."):
+    for root, dirs, files in os.walk(target_dir):
         # Skip excluded directories
         dirs[:] = [d for d in dirs if d not in EXCLUDE_DIRS]
 
@@ -197,35 +301,135 @@ def main():
 
             lines, chars = count_lines_and_chars(file_path)
 
-            stats[category]["files"] += 1
-            stats[category]["lines"] += lines
-            stats[category]["chars"] += chars
+            dir_stats[category]["files"] += 1
+            dir_stats[category]["lines"] += lines
+            dir_stats[category]["chars"] += chars
 
-            total_files += 1
-            total_lines += lines
-            total_chars += chars
+            dir_total_files += 1
+            dir_total_lines += lines
+            dir_total_chars += chars
 
-    # Print results
-    print("=" * 80)
-    print(f"PROJECT STATISTICS SUMMARY")
-    print("=" * 80)
+    return dir_stats, dir_total_files, dir_total_lines, dir_total_chars
+
+
+def format_statistics(stat_dict, files_count, lines_count, chars_count):
+    """
+    Format the statistics as a string.
+    """
+    output = ["=" * 80, f"PROJECT STATISTICS SUMMARY", "=" * 80]
 
     # Print by category
-    categories = sorted(stats.keys())
+    categories = sorted(stat_dict.keys())
     for category in categories:
-        cat_stats = stats[category]
-        print(f"\n{category} Files:")
-        print(f"  Files:      {format_number(cat_stats['files'])}")
-        print(f"  Lines:      {format_number(cat_stats['lines'])}")
-        print(f"  Characters: {format_number(cat_stats['chars'])}")
+        cat_stats = stat_dict[category]
+        output.append(f"\n{category} Files:")
+        output.append(f"  Files:      {format_number(cat_stats['files'])}")
+        output.append(f"  Lines:      {format_number(cat_stats['lines'])}")
+        output.append(f"  Characters: {format_number(cat_stats['chars'])}")
 
     # Print totals
-    print("\n" + "=" * 80)
-    print(
-        f"TOTAL: {format_number(total_files)} files, {format_number(total_lines)} lines, {format_number(total_chars)} characters"
+    output.append("\n" + "=" * 80)
+    output.append(
+        f"TOTAL: {format_number(files_count)} files, {format_number(lines_count)} lines, {format_number(chars_count)} characters"
     )
-    print("=" * 80)
+    output.append("=" * 80)
+
+    return "\n".join(output)
+
+
+def save_statistics_to_file(stats_output):
+    """
+    Save the statistics to a text file and return the file path.
+    """
+    timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+    filename = f"project_stats_{timestamp}.txt"
+    file_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), filename)
+
+    with open(file_path, "w", encoding="utf-8") as f:
+        f.write(stats_output)
+
+    return file_path
+
+
+def display_and_menu(stat_dict, files_count, lines_count, chars_count, args_obj):
+    """
+    Display statistics and show interactive menu.
+    """
+    stats_output = format_statistics(stat_dict, files_count, lines_count, chars_count)
+    print(stats_output)
+
+    while True:
+        print("\nOptions:")
+        print("1. Save statistics to a text file")
+        print("2. Quit")
+        if not args_obj.dir:  # Only offer to run again if not in command-line mode
+            print("3. Run again")
+
+        choice = input("\nEnter your choice (1-3): ").strip()
+
+        if choice == "1":
+            # Save the file immediately when option is chosen
+            file_path = save_statistics_to_file(stats_output)
+            print(f"\nStatistics saved to: {file_path}")
+
+            # Now ask what to do next
+            print("\nOptions:")
+            print("1. Quit")
+            print("2. Run again")
+
+            next_choice = input("\nEnter your choice (1-2): ").strip()
+            if next_choice == "1" or next_choice.lower() == "q":
+                print("Exiting program.")
+                sys.exit(0)
+            elif next_choice == "2":
+                return True  # Run again
+
+        elif choice == "2" or choice.lower() == "q":
+            print("Exiting program.")
+            sys.exit(0)
+        elif choice == "3" and not args_obj.dir:
+            return True  # Run again
+        else:
+            print("Invalid choice. Please try again.")
+
+
+def parse_arguments():
+    """
+    Parse command line arguments.
+    """
+    parser = argparse.ArgumentParser(
+        description="Project Statistics Counter - Analyze and count files, lines, and characters in a project."
+    )
+    parser.add_argument(
+        "-dir",
+        "--directory",
+        dest="dir",
+        help="Directory to analyze (default: current directory)",
+    )
+    return parser.parse_args()
 
 
 if __name__ == "__main__":
-    main()
+    args = parse_arguments()
+
+    while True:
+        target_directory = args.dir if args.dir else "."
+        (
+            directory_stats,
+            directory_total_files,
+            directory_total_lines,
+            directory_total_chars,
+        ) = analyze_directory(target_directory)
+
+        if not display_and_menu(
+            directory_stats,
+            directory_total_files,
+            directory_total_lines,
+            directory_total_chars,
+            args,
+        ):
+            break
+
+        # If running again and in command-line mode, exit after one run
+        if args.dir:
+            break
