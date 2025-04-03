@@ -2,7 +2,7 @@ import os
 import re
 from collections import defaultdict
 
-# File extensions to analyze - add more as needed
+# File extensions to analyze
 TEXT_EXTENSIONS = {
     "Code": [
         ".py",
@@ -131,8 +131,6 @@ def is_binary(file_path, sample_size=8192):
     except (IOError, OSError):
         return True  # If we can't read the file, consider it binary to be safe
 
-    return False
-
 
 def get_file_extension_category(file_path):
     """
@@ -190,7 +188,7 @@ def main():
             file_path = os.path.join(root, file)
 
             # Skip this script itself
-            if os.path.samefile(file_path, __file__):
+            if os.path.abspath(file_path) == os.path.abspath(__file__):
                 continue
 
             category = get_file_extension_category(file_path)
