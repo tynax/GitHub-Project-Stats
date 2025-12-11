@@ -69,7 +69,7 @@ To use the script, navigate to your project directory and run:
 python main.py
 ```
 
-This will execute the analysis on your GitHub project. Make sure you have Python 3.8 or higher to ensure smooth execution.
+This will execute the analysis on your GitHub project. Make sure you have Python 3.8 or higher.
 
 ---
 
@@ -77,13 +77,12 @@ This will execute the analysis on your GitHub project. Make sure you have Python
 
 You can customize the command by using various options:
 
-- `--path`: Specify the directory path to analyze.
-- `--verbose`: Get detailed output during execution.
+- `-d` or `--directory`: Specify the directory path to analyze.
 
 Example:
 
 ```bash
-python main.py --path your/project/path --verbose
+python main.py --directory your/project/path
 ```
 
 ---

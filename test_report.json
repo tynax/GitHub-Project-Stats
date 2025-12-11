@@ -1,0 +1,104 @@
+{
+    "meta": {
+        "analyzed_at": "2025-12-11T22:38:41.414042",
+        "root_dir": "C:\\Users\\Aruntej\\Documents\\GitHub\\GitHub-Project-Stats",
+        "execution_time": 0.009804725646972656
+    },
+    "totals": {
+        "files": 10,
+        "lines": 606,
+        "chars": 22125,
+        "tokens": 5528,
+        "binary_files": 0
+    },
+    "languages": {
+        "Other Text": {
+            "files": 3,
+            "lines": 187,
+            "chars": 4213,
+            "tokens": 1052
+        },
+        "Markdown": {
+            "files": 4,
+            "lines": 383,
+            "chars": 16828,
+            "tokens": 4206
+        },
+        "Text": {
+            "files": 3,
+            "lines": 36,
+            "chars": 1084,
+            "tokens": 270
+        }
+    },
+    "top_files": [
+        {
+            "path": ".gitignore",
+            "lines": 162,
+            "tokens": 771,
+            "lang": "Other Text"
+        },
+        {
+            "path": "README.md",
+            "lines": 134,
+            "tokens": 750,
+            "lang": "Markdown"
+        },
+        {
+            "path": "CODE_OF_CONDUCT.md",
+            "lines": 119,
+            "tokens": 1227,
+            "lang": "Markdown"
+        },
+        {
+            "path": "CONTRIBUTING.md",
+            "lines": 110,
+            "tokens": 2041,
+            "lang": "Markdown"
+        },
+        {
+            "path": "LICENSE",
+            "lines": 22,
+            "tokens": 265,
+            "lang": "Other Text"
+        },
+        {
+            "path": "SECURITY.md",
+            "lines": 20,
+            "tokens": 188,
+            "lang": "Markdown"
+        },
+        {
+            "path": "project_stats_20250403_100739.txt",
+            "lines": 17,
+            "tokens": 135,
+            "lang": "Text"
+        },
+        {
+            "path": "project_stats_20251211_222517.txt",
+            "lines": 17,
+            "tokens": 134,
+            "lang": "Text"
+        },
+        {
+            "path": ".gitattributes",
+            "lines": 3,
+            "tokens": 16,
+            "lang": "Other Text"
+        },
+        {
+            "path": "requirements.txt",
+            "lines": 2,
+            "tokens": 1,
+            "lang": "Text"
+        }
+    ],
+    "todos": {
+        "TODO": 0,
+        "FIXME": 0,
+        "BUG": 0,
+        "HACK": 0,
+        "XXX": 0,
+        "NOTE": 0
+    }
+}
